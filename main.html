@@ -9,7 +9,7 @@
 
   <body>
     <div class="calculator">
-      <input type="text" id="display" disabled/>
+      <input type="text" id="display" value="0" disabled />
       <div class="button">
         <button class="btn number" onclick="insertNumber(1)">1</button>
         <button class="btn number" onclick="insertNumber(2)">2</button>
@@ -37,7 +37,11 @@
 
         //숫자 버튼 눌렀을 때 디스플레이에 보여지기
         function insertNumber(clickedValue) {
-          display.value += clickedValue;
+            if (display.value == '0') {
+                display.value = clickedValue;
+            } else {
+                display.value += clickedValue;
+            }
         }
 
         //연산자 버튼 눌렀을 때 디스플레이에 보여지기
@@ -73,19 +77,43 @@
             }
 
             //연산자의 종류에 따라서 연산 수행(switch문 사용)
+            let result = Number(numList[0]); // 256
 
+            for (let i = 0; i < optList.length; i++) {
+                let nextNum = Number(numList[i+1]);
+                let operator = optList[i]; // ['+', '-']
+
+                switch (operator) {
+                    case '+':
+                        result += nextNum;
+                        break;
+                    case '-':
+                        result -= nextNum;
+                        break;
+                    case '*':
+                        result *= nextNum;
+                        break;
+                    case '%':
+                        nextNum !== 0 ? result /= nextNum : "error"; //0으로 나누기 방지
+                        break;
+                }
+            }
+            console.log('과연 결과는??? ' + result);
+
+            //디스플레이에 연산 결과 출력
+            display.value = result;
         }
 
 
         //다 지워지는 기능
         function allClear(){
-
+            display.value = 0;
         }
 
+        //
       </script>
     </div>
   </body>
 </html>
-
 
 <!-- "25+36=" -->
