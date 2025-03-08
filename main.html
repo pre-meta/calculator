@@ -26,8 +26,8 @@
         <button class="btn operator" onclick="insertOperator('-')">-</button>
         <button class="btn operator" onclick="insertOperator('*')">*</button>
         <button class="btn operator" onclick="insertOperator('%')">%</button>
-        <button class="btn operator" onclick="insertOperator('=')">=</button>
-        <button class="btn operator" id="clr" onclick="insertOperator('=')">c</button>
+        <button class="btn operator" onclick="calculateResult()">=</button>
+        <button class="btn operator" id="clr" onclick="allClear()">c</button>
       </div>
       <script>
         //버튼 요소
@@ -46,12 +46,46 @@
         }
 
         //연산기능
+        function calculateResult(){
+            //입력된 문자열 가져오기 ("25+36")
+            const inputData = display.value;
+            // console.log(inputData);
 
+            //연산자와 피연산자 추출하기
+            let numList = []; //피연산자 리스트
+            let optList = []; //연산자 리스트
+            let num = ''; //현재 숫자 저장용
+
+            for (let i = 0; i < inputData.length; i++) {
+                let digit = inputData[i];
+                if (digit != '+' && digit != '-' && digit != '*' && digit != '%') { //숫자면
+                    num += digit;
+                } else { //문자면
+                    numList.push(num); //숫자를 숫자배열에 추가
+                    num = ''; //숫자만들기 초기화
+
+                    optList.push(digit);
+                }
+            }
+
+            if (num != 0) { //마지막 저장된 숫자 리스트에 넣기
+                numList.push(num);
+            }
+
+            //연산자의 종류에 따라서 연산 수행(switch문 사용)
+
+        }
 
 
         //다 지워지는 기능
+        function allClear(){
+
+        }
 
       </script>
     </div>
   </body>
 </html>
+
+
+<!-- "25+36=" -->
