@@ -11,21 +11,21 @@
     <div class="calculator">
       <input type="text" id="display" value="0" disabled />
       <div class="button">
-        <button class="btn number" onclick="insertNumber(1)">1</button>
-        <button class="btn number" onclick="insertNumber(2)">2</button>
-        <button class="btn number" onclick="insertNumber(3)">3</button>
-        <button class="btn number" onclick="insertNumber(4)">4</button>
-        <button class="btn number" onclick="insertNumber(5)">5</button>
-        <button class="btn number" onclick="insertNumber(6)">6</button>
-        <button class="btn number" onclick="insertNumber(7)">7</button>
-        <button class="btn number" onclick="insertNumber(8)">8</button>
-        <button class="btn number" onclick="insertNumber(9)">9</button>
-        <button class="btn number" onclick="insertNumber(0)">0</button>
+        <button class="btn number" onclick="insertNumber(this)">1</button>
+        <button class="btn number" onclick="insertNumber(this)">2</button>
+        <button class="btn number" onclick="insertNumber(this)">3</button>
+        <button class="btn number" onclick="insertNumber(this)">4</button>
+        <button class="btn number" onclick="insertNumber(this)">5</button>
+        <button class="btn number" onclick="insertNumber(this)">6</button>
+        <button class="btn number" onclick="insertNumber(this)">7</button>
+        <button class="btn number" onclick="insertNumber(this)">8</button>
+        <button class="btn number" onclick="insertNumber(this)">9</button>
+        <button class="btn number" onclick="insertNumber(this)">0</button>
 
-        <button class="btn operator" onclick="insertOperator('+')">+</button>
-        <button class="btn operator" onclick="insertOperator('-')">-</button>
-        <button class="btn operator" onclick="insertOperator('*')">*</button>
-        <button class="btn operator" onclick="insertOperator('%')">%</button>
+        <button class="btn operator" onclick="insertOperator(this)">+</button>
+        <button class="btn operator" onclick="insertOperator(this)">-</button>
+        <button class="btn operator" onclick="insertOperator(this)">*</button>
+        <button class="btn operator" onclick="insertOperator(this)">%</button>
         <button class="btn operator" onclick="calculateResult()">=</button>
         <button class="btn operator" id="clr" onclick="allClear()">c</button>
       </div>
@@ -36,17 +36,17 @@
         const pfButtons = document.querySelectorAll(".operator");
 
         //숫자 버튼 눌렀을 때 디스플레이에 보여지기
-        function insertNumber(clickedValue) {
+        function insertNumber(button) {
             if (display.value == '0') {
-                display.value = clickedValue;
+                display.value = button.innerText;
             } else {
-                display.value += clickedValue;
+                display.value += button.innerText;
             }
         }
 
         //연산자 버튼 눌렀을 때 디스플레이에 보여지기
-        function insertOperator(opr) {
-          display.value += opr;
+        function insertOperator(button) {
+          display.value += button.innerText;
         }
 
         //연산기능
@@ -109,8 +109,6 @@
         function allClear(){
             display.value = 0;
         }
-
-        //
       </script>
     </div>
   </body>
