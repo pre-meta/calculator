@@ -1,83 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
 
-
-</head>
-
-<body>
+  <body>
     <div class="calculator">
-        <input type="text" id="display" disabled />
-        <div class="button">
-            <button class="btn" onclick=performOperation(this)>1</button>
-            <button class="btn" onclick=performOperation(this)>2</button>
-            <button class="btn" onclick=performOperation(this)>3</button>
-            <button class="btn" onclick=performOperation(this)>4</button>
-            <button class="btn" onclick=performOperation(this)>5</button>
-            <button class="btn" onclick=performOperation(this)>6</button>
-            <button class="btn" onclick=performOperation(this)>7</button>
-            <button class="btn" onclick=performOperation(this)>8</button>
-            <button class="btn" onclick=performOperation(this)>9</button>
-            <button class="btn" onclick=performOperation(this)>0</button>
-            <button class="btn" onclick=performOperation(this)>+</button>
-            <button class="btn" onclick=performOperation(this)>-</button>
-            <button class="btn" onclick=performOperation(this)>*</button>
-            <button class="btn" onclick=performOperation(this)>%</button>
-            <button class="btn" onclick=(this)>=</button>
-            <button class="btn" id="c" onclick=(this)>c</button>
-        </div>
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
+      <input type="text" id="display" disabled/>
+      <div class="button">
+        <button class="btn number" onclick="insertNumber(1)">1</button>
+        <button class="btn number" onclick="insertNumber(2)">2</button>
+        <button class="btn number" onclick="insertNumber(3)">3</button>
+        <button class="btn number" onclick="insertNumber(4)">4</button>
+        <button class="btn number" onclick="insertNumber(5)">5</button>
+        <button class="btn number" onclick="insertNumber(6)">6</button>
+        <button class="btn number" onclick="insertNumber(7)">7</button>
+        <button class="btn number" onclick="insertNumber(8)">8</button>
+        <button class="btn number" onclick="insertNumber(9)">9</button>
+        <button class="btn number" onclick="insertNumber(0)">0</button>
 
-            }
+        <button class="btn operator" onclick="insertOperator('+')">+</button>
+        <button class="btn operator" onclick="insertOperator('-')">-</button>
+        <button class="btn operator" onclick="insertOperator('*')">*</button>
+        <button class="btn operator" onclick="insertOperator('%')">%</button>
+        <button class="btn operator" onclick="insertOperator('=')">=</button>
+        <button class="btn operator" id="clr" onclick="insertOperator('=')">c</button>
+      </div>
+      <script>
+        //버튼 요소
+        const display = document.getElementById("display");
+        const numButtons = document.querySelectorAll(".number");
+        const pfButtons = document.querySelectorAll(".operator");
 
-            .calculator {
-                width: 400px;
-                text-align: center;
-                background-color: gray;
-                height: 300px;
-                flex-direction: column;
-                /* 세로로 배치 */
-                justify-content: center;
-                /* 세로 중앙 정렬 */
-                align-items: center;
-                /* 가로 중앙 정렬 */
-            }
+        //숫자 버튼 눌렀을 때 디스플레이에 보여지기
+        function insertNumber(clickedValue) {
+          display.value += clickedValue;
+        }
 
-            #display {
-                width: 200px;
-                height: 50px;
-                text-align: right;
-                font-weight: bold;
+        //연산자 버튼 눌렀을 때 디스플레이에 보여지기
+        function insertOperator(opr) {
+          display.value += opr;
+        }
+
+        //연산기능
 
 
-            }
 
-            .button {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, auto);
-                gap: 10px;
-                padding: 10px;
-            }
+        //다 지워지는 기능
 
-            .btn {
-                background-color: black;
-                font-weight: bold;
-                color: white;
-
-            }
-
-            #c {
-                grid-column: 2;
-            }
-        </style>
+      </script>
     </div>
-</body>
+  </body>
 </html>
