@@ -1,83 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
 
-
-</head>
-
-<body>
+  <body>
     <div class="calculator">
-        <input type="text" id="display" disabled />
-        <div class="button">
-            <button class="btn" onclick=performOperation(this)>1</button>
-            <button class="btn" onclick=performOperation(this)>2</button>
-            <button class="btn" onclick=performOperation(this)>3</button>
-            <button class="btn" onclick=performOperation(this)>4</button>
-            <button class="btn" onclick=performOperation(this)>5</button>
-            <button class="btn" onclick=performOperation(this)>6</button>
-            <button class="btn" onclick=performOperation(this)>7</button>
-            <button class="btn" onclick=performOperation(this)>8</button>
-            <button class="btn" onclick=performOperation(this)>9</button>
-            <button class="btn" onclick=performOperation(this)>0</button>
-            <button class="btn" onclick=performOperation(this)>+</button>
-            <button class="btn" onclick=performOperation(this)>-</button>
-            <button class="btn" onclick=performOperation(this)>*</button>
-            <button class="btn" onclick=performOperation(this)>%</button>
-            <button class="btn" onclick=(this)>=</button>
-            <button class="btn" id="c" onclick=(this)>c</button>
-        </div>
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
+      <input type="text" id="display" value="0" disabled />
+      <div class="button">
+        <button class="btn number" onclick="insertNumber(1)">1</button>
+        <button class="btn number" onclick="insertNumber(2)">2</button>
+        <button class="btn number" onclick="insertNumber(3)">3</button>
+        <button class="btn number" onclick="insertNumber(4)">4</button>
+        <button class="btn number" onclick="insertNumber(5)">5</button>
+        <button class="btn number" onclick="insertNumber(6)">6</button>
+        <button class="btn number" onclick="insertNumber(7)">7</button>
+        <button class="btn number" onclick="insertNumber(8)">8</button>
+        <button class="btn number" onclick="insertNumber(9)">9</button>
+        <button class="btn number" onclick="insertNumber(0)">0</button>
 
+        <button class="btn operator" onclick="insertOperator('+')">+</button>
+        <button class="btn operator" onclick="insertOperator('-')">-</button>
+        <button class="btn operator" onclick="insertOperator('*')">*</button>
+        <button class="btn operator" onclick="insertOperator('%')">%</button>
+        <button class="btn operator" onclick="calculateResult()">=</button>
+        <button class="btn operator" id="clr" onclick="allClear()">c</button>
+      </div>
+      <script>
+        //버튼 요소
+        const display = document.getElementById("display");
+        const numButtons = document.querySelectorAll(".number");
+        const pfButtons = document.querySelectorAll(".operator");
+
+        //숫자 버튼 눌렀을 때 디스플레이에 보여지기
+        function insertNumber(clickedValue) {
+            if (display.value == '0') {
+                display.value = clickedValue;
+            } else {
+                display.value += clickedValue;
+            }
+        }
+
+        //연산자 버튼 눌렀을 때 디스플레이에 보여지기
+        function insertOperator(opr) {
+          display.value += opr;
+        }
+
+        //연산기능
+        function calculateResult(){
+            //입력된 문자열 가져오기 ("25+36")
+            const inputData = display.value;
+            // console.log(inputData);
+
+            //연산자와 피연산자 추출하기
+            let numList = []; //피연산자 리스트
+            let optList = []; //연산자 리스트
+            let num = ''; //현재 숫자 저장용
+
+            for (let i = 0; i < inputData.length; i++) {
+                let digit = inputData[i];
+                if (digit != '+' && digit != '-' && digit != '*' && digit != '%') { //숫자면
+                    num += digit;
+                } else { //문자면
+                    numList.push(num); //숫자를 숫자배열에 추가
+                    num = ''; //숫자만들기 초기화
+
+                    optList.push(digit);
+                }
             }
 
-            .calculator {
-                width: 400px;
-                text-align: center;
-                background-color: gray;
-                height: 300px;
-                flex-direction: column;
-                /* 세로로 배치 */
-                justify-content: center;
-                /* 세로 중앙 정렬 */
-                align-items: center;
-                /* 가로 중앙 정렬 */
+            if (num != 0) { //마지막 저장된 숫자 리스트에 넣기
+                numList.push(num);
             }
 
-            #display {
-                width: 200px;
-                height: 50px;
-                text-align: right;
-                font-weight: bold;
+            //연산자의 종류에 따라서 연산 수행(switch문 사용)
+            let result = Number(numList[0]); // 256
 
+            for (let i = 0; i < optList.length; i++) {
+                let nextNum = Number(numList[i+1]);
+                let operator = optList[i]; // ['+', '-']
 
+                switch (operator) {
+                    case '+':
+                        result += nextNum;
+                        break;
+                    case '-':
+                        result -= nextNum;
+                        break;
+                    case '*':
+                        result *= nextNum;
+                        break;
+                    case '%':
+                        nextNum !== 0 ? result /= nextNum : "error"; //0으로 나누기 방지
+                        break;
+                }
             }
+            console.log('과연 결과는??? ' + result);
 
-            .button {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, auto);
-                gap: 10px;
-                padding: 10px;
-            }
+            //디스플레이에 연산 결과 출력
+            display.value = result;
+        }
 
-            .btn {
-                background-color: black;
-                font-weight: bold;
-                color: white;
 
-            }
+        //다 지워지는 기능
+        function allClear(){
+            display.value = 0;
+        }
 
-            #c {
-                grid-column: 2;
-            }
-        </style>
+        //
+      </script>
     </div>
-</body>
+  </body>
 </html>
+
+<!-- "25+36=" -->
